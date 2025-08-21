@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  /* Olive colors */
+  --color-olive-50: #f8f8f7;
+  --color-olive-100: #f0f0ee;
+  --color-olive-200: #e1e1dd;
+  --color-olive-300: #c8c8c1;
+  --color-olive-400: #a8a89e;
+  --color-olive-500: #8b8b7e;
+  --color-olive-600: #6f6f64;
+  --color-olive-700: #56564e;
+  --color-olive-800: #3d3d37;
+  --color-olive-900: #28281f;
+
+  /* Gray colors */
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #e5e5e5;
+  --color-gray-300: #d4d4d4;
+  --color-gray-400: #a3a3a3;
+  --color-gray-500: #737373;
+  --color-gray-600: #525252;
+  --color-gray-700: #404040;
+  --color-gray-800: #262626;
+  --color-gray-900: #0e0e0c;
+
+  /* Beige colors */
+  --color-beige-50: #fefdfb;
+  --color-beige-100: #fbf9f4;
+  --color-beige-200: #f6f2e8;
+  --color-beige-300: #ede6d6;
+  --color-beige-400: #ddd1b8;
+  --color-beige-500: #c9b896;
+  --color-beige-600: #b5a082;
+  --color-beige-700: #9b8a72;
+  --color-beige-800: #7a6e5c;
+  --color-beige-900: #5c5349;
+
+  /* Grid rules */
+  --grid-cols-13: repeat(13, minmax(0, 1fr));
+
+  /* Padding Rules */
+  --section-padding: 1rem;
+}
+
+@utility section-padding {
+  padding: var(--section-padding);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, sans-serif;
+}
