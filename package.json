@@ -12,7 +12,8 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.12",
     "class-variance-authority": "^0.7.1",
-    "lucide-react": "^0.540.0",
+    "lucide-react": "^0.541.0",
+    "react-fast-marquee": "1.6.5",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.12"
