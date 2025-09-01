@@ -1,33 +1,38 @@
-import { useCallback, useEffect, useState } from "react";
-
+import { useCallback, useEffect, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 interface TimeDisplayProps {
   timeZone: string;
   location: string;
   updateInterval?: number;
   className?: string;
+  timeClassName?: string;
+  locationClassName?: string;
 }
 
 const TimeDisplay = ({
-  timeZone = "America/Los_Angeles",
-  location = "LOS ANGELES, CA, USA",
+  timeZone = 'America/Los_Angeles',
+  location = 'LOS ANGELES, CA, USA',
   updateInterval = 60000,
   className,
+  timeClassName,
+  locationClassName,
 }: TimeDisplayProps) => {
-  const [currentTime, setCurrentTime] = useState<string>("");
+  console.log(timeClassName);
+  const [currentTime, setCurrentTime] = useState<string>('');
 
   const updateTime = useCallback(() => {
     try {
-      const timeString = new Intl.DateTimeFormat("en-US", {
+      const timeString = new Intl.DateTimeFormat('en-US', {
         timeZone,
-        hour: "2-digit",
-        minute: "2-digit",
+        hour: '2-digit',
+        minute: '2-digit',
         hour12: true,
       }).format(new Date());
 
       setCurrentTime(timeString);
     } catch (error) {
-      console.error("Error formatting time:", error);
-      setCurrentTime("");
+      console.error('Error formatting time:', error);
+      setCurrentTime('');
     }
   }, [timeZone]);
 
@@ -42,31 +47,37 @@ const TimeDisplay = ({
       }
     };
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       clearInterval(intervalId);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [updateTime, updateInterval]);
 
   return (
     <time
-      className={`flex flex-col ${className}`}
+      className={twMerge('flex flex-col', className)}
       dateTime={new Date().toISOString()}
-      role="timer"
-      aria-live="polite"
+      role='timer'
+      aria-live='polite'
       aria-label={`Current time in ${location}`}
     >
       <span
-        className="lg:text-5xl text-3xl font-sans font-normal text-gray-800"
-        aria-label="Current time"
+        className={twMerge(
+          'font-sans text-3xl font-normal text-gray-600 lg:text-5xl',
+          timeClassName
+        )}
+        aria-label='Current time'
       >
         {currentTime}
       </span>
       <span
-        className="lg:text-4xl text-2xl font-sans font-normal text-gray-600"
-        aria-label="Location"
+        className={twMerge(
+          'font-sans text-2xl font-normal text-gray-600 lg:text-4xl',
+          locationClassName
+        )}
+        aria-label='Location'
       >
         {location}
       </span>
