@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 #root:before {
   content: '';
@@ -53,18 +53,75 @@
   /* Grid rules */
   --grid-cols-13: repeat(13, minmax(0, 1fr));
 
-  /* Padding Rules */
-  --section-padding: 1.5rem;
-
-  /*Fonts*/
+  /* Fonts */
   --font-almarai: 'Almarai', sans-serif;
   --font-rethink: 'Rethink Sans', sans-serif;
   --font-ibm: 'IBM Plex Mono', monospace;
   --font-general: 'General Sans', sans-serif;
   --font-montreal: 'Montreal Mono', monospace;
 
-  /*Animations*/
+  /* Fluid Typography - Create actual utilities */
+  --font-size-fluid-xs: clamp(0.75rem, calc(0.7rem + 0.25vw), 0.875rem);
+  --font-size-fluid-sm: clamp(0.875rem, calc(0.8rem + 0.375vw), 1rem);
+  --font-size-fluid-base: clamp(1rem, calc(0.95rem + 0.25vw), 1.125rem);
+  --font-size-fluid-lg: clamp(1.125rem, calc(1.1rem + 0.125vw), 1.25rem);
+  --font-size-fluid-xl: clamp(1.25rem, calc(1.1rem + 0.75vw), 1.875rem);
+  --font-size-fluid-2xl: clamp(1.5rem, calc(1.2rem + 1.5vw), 2.25rem);
+  --font-size-fluid-3xl: clamp(1.875rem, calc(1.4rem + 2.375vw), 3rem);
+  --font-size-fluid-4xl: clamp(2.25rem, calc(1.6rem + 3.25vw), 3.75rem);
+  --font-size-fluid-5xl: clamp(3rem, calc(2rem + 5vw), 4.5rem);
+  --font-size-fluid-6xl: clamp(3.75rem, calc(2.4rem + 6.75vw), 6rem);
+
+  /* Animations */
   --animate-fade-in: fadeIn 0.75s ease-in-out;
+
+  /* Section padding */
+  --section-padding: 1.5rem;
+}
+
+/* Create utilities for your fluid typography */
+@utility text-fluid-xs {
+  font-size: var(--font-size-fluid-xs);
+}
+
+@utility text-fluid-sm {
+  font-size: var(--font-size-fluid-sm);
+}
+
+@utility text-fluid-base {
+  font-size: var(--font-size-fluid-base);
+}
+
+@utility text-fluid-lg {
+  font-size: var(--font-size-fluid-lg);
+}
+
+@utility text-fluid-xl {
+  font-size: var(--font-size-fluid-xl);
+}
+
+@utility text-fluid-2xl {
+  font-size: var(--font-size-fluid-2xl);
+}
+
+@utility text-fluid-3xl {
+  font-size: var(--font-size-fluid-3xl);
+}
+
+@utility text-fluid-4xl {
+  font-size: var(--font-size-fluid-4xl);
+}
+
+@utility text-fluid-5xl {
+  font-size: var(--font-size-fluid-5xl);
+}
+
+@utility text-fluid-6xl {
+  font-size: var(--font-size-fluid-6xl);
+}
+
+@utility section-padding {
+  padding: var(--section-padding);
 }
 
 @layer utilities {
@@ -100,10 +157,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-@utility section-padding {
-  padding: var(--section-padding);
 }
 
 /* Almarai Font Family */
