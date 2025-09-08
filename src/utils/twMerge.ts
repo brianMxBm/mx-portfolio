@@ -1,11 +1,11 @@
-import { extendTailwindMerge } from 'tailwind-merge'
+import { extendTailwindMerge } from 'tailwind-merge';
 
 const customTwMerge = extendTailwindMerge<'fluid-typography'>({
   extend: {
     classGroups: {
       'font-size': [
         'text-fluid-xs',
-        'text-fluid-sm', 
+        'text-fluid-sm',
         'text-fluid-base',
         'text-fluid-lg',
         'text-fluid-xl',
@@ -17,8 +17,8 @@ const customTwMerge = extendTailwindMerge<'fluid-typography'>({
       ],
     },
   },
-})
+});
 
-export default customTwMerge
+export default customTwMerge;
 
 //@SEE: Tailwind 4 doesn't auto-generate these utilities. I need to define them to get the fluid typography to work for some reason..?
