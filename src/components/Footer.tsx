@@ -1,12 +1,57 @@
-import Marquee from "react-fast-marquee";
-import TimeDisplay from "./TimeDisplay";
+import Marquee from 'react-fast-marquee';
+import { LinkItem } from './primitive/LinkItem';
+import { ArrowUpRight } from 'lucide-react';
+import TimeDisplay from './TimeDisplay';
+
+const navigationLinks = [
+  { href: '/overview', label: 'Overview' },
+  { href: '/experience', label: 'Experience' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const socialLinks = [
+  {
+    href: 'https://www.linkedin.com/in/brian-melgar-a10b3120a/',
+    label: 'LinkedIn',
+    ariaLabel: "Visit Brian's LinkedIn",
+  },
+  {
+    href: 'https://www.instagram.com/officialmxp/',
+    label: 'Instagram',
+    ariaLabel: "Visit Brian's Instagram",
+  },
+  {
+    href: 'https://github.com/brianMxBm',
+    label: 'Github',
+    ariaLabel: "Visit Brian's GitHub",
+  },
+  {
+    href: 'https://x.com/officialmxp',
+    label: 'Twitter',
+    ariaLabel: "Visit Brian's Twitter",
+  },
+  {
+    href: 'https://op.gg/lol/summoners/na/OfficialMx-NA1',
+    label: 'League',
+    ariaLabel: "Visit Brian's OPGG",
+  },
+];
+
+const resourceLinks = [
+  { label: 'Resume', ariaLabel: "Download Brian Melgar's Resume" },
+  { label: 'Blog', ariaLabel: "Visit Brian's Blog" },
+  { label: 'Tools', ariaLabel: "Visit Brian's Favorite Tools" },
+  { label: 'Reads', ariaLabel: "Visit Brian's GoodReads" },
+];
 
 export default function Footer() {
   return (
     <footer>
-      <Marquee speed={30} autoFill>
-        <div className="bg-gray-900 py-3">
-          <p className="font-general font-thin text-beige-400 text-xl ">
+      <Marquee speed={15} autoFill>
+        <div className='bg-dark-900 py-1.5'>
+          <p className='font-general text-beige-400 text-xl font-thin'>
             &lt;h1&gt; Brian Melgar | Developer Writer Teacher &lt;/h1&gt;
             &lt;h2&gt; Contact Me &lt;/h2&gt; &lt;p&gt; Email: &lt;a
             href=&quot;mailto:brian.melgar.mx@gmail.com&quot;&gt;brian.melgar.mx@gmail.com&lt;/a&gt;
@@ -21,128 +66,94 @@ export default function Footer() {
         </div>
       </Marquee>
 
-      <div className="section-padding relative flex flex-col items-center justify-center">
-        <div className="gap-x-10 grid w-full grid-cols-2 text-base md:grid-cols-13">
-          <div className="flex flex-col md:col-span-6">
-            <h3 className="text-olive-700 font-sans pb-2 text-xl font-semibold border-b-[1px] border-b-olive-400 ">
+      <div className='section-padding relative flex flex-col items-center justify-center'>
+        <div className='grid w-full grid-cols-2 gap-x-10 text-base md:grid-cols-12'>
+          {/* Navigation */}
+          <div className='col-span-1 md:col-span-4'>
+            <h3 className='text-olive-800 border-b-olive-400 pointer-events-none border-b-[1px] pb-2 font-sans text-xl font-normal'>
               Menu
             </h3>
-            <ul className="flex flex-col leading-tight space-y-0">
-              <li>
-                <a
-                  target="/overview"
-                  className="hover-text text-olive-800 font-semibold font-sans text-lg"
-                  href="/"
-                >
-                  <span className="link1">Overview</span>
-                  <span className="link2">Overview</span>
-                </a>
-              </li>
-
-              <li>
-                <a
-                  target="/experience"
-                  className="hover-text text-olive-800 font-semibold font-sans text-lg"
-                  href="/"
-                >
-                  <span className="link1">Experience</span>
-                  <span className="link2">Experience</span>
-                </a>
-              </li>
-
-              <li>
-                <a
-                  target="/overview"
-                  className="hover-text text-olive-800 font-semibold font-sans text-lg"
-                  href="/"
-                >
-                  <span className="link1">Projects</span>
-                  <span className="link2">Projects</span>
-                </a>
-              </li>
-
-              <li>
-                <a
-                  target="/overview"
-                  className="hover-text text-olive-800 font-semibold font-sans text-lg"
-                  href="/"
-                >
-                  <span className="link1">About</span>
-                  <span className="link2">About</span>
-                </a>
-              </li>
-
-              <li>
-                <a
-                  target="/overview"
-                  className="hover-text text-olive-800 font-semibold font-sans text-lg"
-                  href="/"
-                >
-                  <span className="link1">Contact</span>
-                  <span className="link2">Contact</span>
-                </a>
-              </li>
+            <ul className='flex flex-col items-start space-y-0 gap-y-1 leading-tight md:gap-y-0'>
+              {navigationLinks.map(link => (
+                <LinkItem
+                  key={link.label}
+                  href={link.href}
+                  label={link.label}
+                  ariaLabel={`Go to ${link.label} page`}
+                  target='_self'
+                />
+              ))}
             </ul>
           </div>
 
-          <div className="flex flex-col md:col-span-3">
-            <h3 className="text-olive-700 font-sans pb-2 text-xl font-semibold border-b-[1px] border-b-olive-400 ">
-              Socials
+          {/* Social media */}
+          <div className='col-span-1 md:col-span-4'>
+            <h3
+              aria-label='Connect with Brian Melgar'
+              className='text-olive-800 border-b-olive-400 pointer-events-none border-b-[1px] pb-2 font-sans text-xl font-normal'
+            >
+              Connect
             </h3>
-            <ul className="flex flex-col leading-tight space-y-0">
-              <li>
-                <a
-                  className="hover-text text-olive-800 font-semibold font-sans text-lg"
-                  aria-label="Visit Brian's LinkedIn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={"https://www.linkedin.com/in/brian-melgar-a10b3120a/"}
-                >
-                  <span className="link1">LinkedIn</span>
-                  <span className="link2">LinkedIn</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  className="hover-text text-olive-800 font-semibold font-sans text-lg"
-                  aria-label="Visit Brian's Instagram"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://www.instagram.com/officialmxp/"
-                >
-                  <span className="link1">Instagram</span>
-                  <span className="link2">Instagram</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  target="_blank"
-                  aria-label="Visit Brian's Instagram"
-                  className="hover-text text-olive-800 font-semibold font-sans text-lg"
-                  href="https://github.com/brianMxBm"
-                >
-                  <span className="link1">Github</span>
-                  <span className="link2">Github</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  aria-label="Visit Brian's Twitter"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={"https://x.com/officialmxp"}
-                  className="hover-text text-olive-800 font-semibold font-sans text-lg"
-                >
-                  <span className="link1">Twitter</span>
-                  <span className="link2">Twitter</span>
-                </a>
-              </li>
+            <ul className='flex flex-col space-y-0 gap-y-1 leading-tight md:gap-y-0'>
+              {socialLinks.map(link => (
+                <LinkItem
+                  key={link.label}
+                  href={link.href}
+                  label={link.label}
+                  ariaLabel={link.ariaLabel}
+                  icon={<ArrowUpRight size={15} className='text-olive-600' />}
+                />
+              ))}
             </ul>
+          </div>
+
+          {/* Resources */}
+          <div className='col-span-full pt-4 md:col-span-4 md:pt-0'>
+            <h3 className='text-olive-800 border-b-olive-400 pointer-events-none border-b-[1px] pb-2 font-sans text-xl font-normal'>
+              Resources
+            </h3>
+            <ul className='flex flex-col space-y-0 gap-y-1 leading-tight md:gap-y-0'>
+              {resourceLinks.map(link => (
+                <LinkItem
+                  key={link.label}
+                  href='#' // Add actual hrefs when ready
+                  label={link.label}
+                  ariaLabel={link.ariaLabel}
+                  icon={<ArrowUpRight size={15} className='text-olive-600' />}
+                />
+              ))}
+            </ul>
+          </div>
+
+          {/* Time Display*/}
+          <div className='col-span-full pt-4 md:col-span-4 md:col-start-1'>
+            <TimeDisplay
+              locationClassName='text-olive-600 uppercase'
+              timeZone={'America/Los_Angeles'}
+              location={'Los Angeles, CA'}
+            />
+          </div>
+
+          {/* Quote*/}
+          <div className='col-span-full hidden pt-4 md:col-span-4 md:col-start-9 md:block'>
+            <p className='text-olive-600 font-general text-fluid-xl font-thin uppercase'>
+              */ embrace the banal /*
+              <br />
+              */ craft it into art /*
+              <br />
+            </p>
           </div>
         </div>
-      </div>
 
-      <TimeDisplay timeZone={""} location={""} />
+        <div className='flex w-full justify-between pt-2'>
+          <span
+            aria-label={`Copyright ${new Date().getFullYear()} Brian A Melgar`}
+            className='text-fluid-md text-olive-800 font-general font-thin'
+          >
+            &copy; {new Date().getFullYear()} brian melgar / mx
+          </span>
+        </div>
+      </div>
     </footer>
   );
 }

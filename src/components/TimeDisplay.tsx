@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
+import customTwMerge from '../utils/twMerge';
 interface TimeDisplayProps {
   timeZone: string;
   location: string;
@@ -17,7 +17,6 @@ const TimeDisplay = ({
   timeClassName,
   locationClassName,
 }: TimeDisplayProps) => {
-  console.log(timeClassName);
   const [currentTime, setCurrentTime] = useState<string>('');
 
   const updateTime = useCallback(() => {
@@ -57,24 +56,25 @@ const TimeDisplay = ({
 
   return (
     <time
-      className={twMerge('flex flex-col', className)}
+      className={customTwMerge('flex flex-col gap-y-2', className)}
       dateTime={new Date().toISOString()}
       role='timer'
       aria-live='polite'
       aria-label={`Current time in ${location}`}
     >
       <span
-        className={twMerge(
-          'font-sans text-3xl font-normal text-gray-600 lg:text-5xl',
+        className={customTwMerge(
+          'text-olive-700 text-fluid-2xl font-general leading-none font-normal',
           timeClassName
         )}
         aria-label='Current time'
       >
         {currentTime}
       </span>
+
       <span
-        className={twMerge(
-          'font-sans text-2xl font-normal text-gray-600 lg:text-4xl',
+        className={customTwMerge(
+          'text-fluid-xl font-sans leading-none font-normal text-gray-700',
           locationClassName
         )}
         aria-label='Location'
