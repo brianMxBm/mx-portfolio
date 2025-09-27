@@ -13,7 +13,7 @@ export const LinkItem = ({
   target = '_blank',
   icon,
 }: LinkItemProps) => (
-  <li className='hover-text relative w-fit overflow-hidden px-1'>
+  <li className='hover-text relative overflow-hidden'>
     <a
       href={href}
       className='link1 text-olive-700 text-fluid-xl font-sans font-thin'
