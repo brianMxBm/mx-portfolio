@@ -19,6 +19,8 @@ export const IntroAnimation = () => {
       return;
     if (isComplete) return;
 
+    document.body.classList.add('overflow-hidden');
+
     const tl = gsap.timeline();
 
     timelineRef.current = tl;
@@ -129,13 +131,14 @@ export const IntroAnimation = () => {
         duration: 0.5,
         ease: 'power2.out',
         onComplete: () => {
+          document.body.classList.remove('overflow-hidden');
           setIsComplete(true);
         },
       });
   }, []);
 
   return (
-    <div className='aria-hidden pointer-events-none fixed inset-0 z-50'>
+    <div className=' overscroll-contain body-scroll-aria-hidden pointer-events-none fixed inset-0 z-50'>
       <div
         ref={overlayRef}
         className='absolute inset-0 bg-black'
