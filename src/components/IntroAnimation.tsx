@@ -1,84 +1,156 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
-interface IntroAnimationProps {
-  onComplete?: () => void;
-}
 
-const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
+export const IntroAnimation = () => {
   const [isComplete, setIsComplete] = useState(false);
-  
-  // Refs for the animation elements
-  const topHalfRef = useRef<HTMLDivElement>(null);
-  const bottomHalfRef = useRef<HTMLDivElement>(null);
+
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const verticalCutRef = useRef<HTMLDivElement>(null);
+  const horizontalCutRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
-    // Ensure all refs are available
-    if (!topHalfRef.current || !bottomHalfRef.current) {
+    if (
+      !overlayRef.current ||
+      !verticalCutRef.current ||
+      !horizontalCutRef.current
+    )
       return;
-    }
+    if (isComplete) return;
 
-    // Set initial states using GSAP for better performance
-    gsap.set([topHalfRef.current, bottomHalfRef.current], { 
-      x: 0,
-      y: 0,
-      willChange: 'transform'
+    const tl = gsap.timeline();
+
+    timelineRef.current = tl;
+
+    gsap.set([verticalCutRef.current, horizontalCutRef.current], {
+      opacity: 0,
     });
 
-    // Create the main timeline
-    const tl = gsap.timeline({
-      onComplete: () => {
-        // Clean up after animation
-        setIsComplete(true);
-        onComplete?.();
-      }
+    gsap.set(verticalCutRef.current, {
+      width: 0,
+      height: '100vh',
+      left: '25%',
+      top: 0,
+      transformOrigin: 'left center',
     });
 
-    // Animation sequence - top slides left, bottom slides right
-    tl.delay(1.0) // Initial delay
-    .to(topHalfRef.current, {
-      x: '-100%',
-      duration: 1.2,
-      ease: "power3.inOut"
+    gsap.set(horizontalCutRef.current, {
+      width: '100vw',
+      height: 0,
+      left: 0,
+      top: '75%',
+      transformOrigin: 'center top',
+    });
+
+    tl.to(verticalCutRef.current, {
+      opacity: 1,
+      width: '12px',
+      duration: 0.12,
+      ease: 'power2.out',
     })
-    .to(bottomHalfRef.current, {
-      x: '100%',
-      duration: 1.2,
-      ease: "power3.inOut"
-    }, "-=1.2"); // Start at the same time as top half
+      .to(
+        verticalCutRef.current,
+        {
+          width: '4px',
+          duration: 0.15,
+          ease: 'power2.inOut',
+        },
+        '-=0.05'
+      )
 
-    // Cleanup function
-    return () => {
-      tl.kill();
-    };
-  }, [onComplete]);
+      .to(
+        horizontalCutRef.current,
+        {
+          opacity: 1,
+          height: '12px',
+          duration: 0.15,
+          ease: 'power2.out',
+        },
+        '-=0.1'
+      )
 
-  // Don't render anything after animation completes
-  if (isComplete) return null;
+      .to(
+        horizontalCutRef.current,
+        {
+          height: '4px',
+          duration: 0.15,
+          ease: 'power2.inOut',
+        },
+        '-=0.05'
+      )
+
+      .to({}, { duration: 0.3 })
+
+      .to(verticalCutRef.current, {
+        width: '180px',
+        duration: 0.5,
+        ease: 'power3.out',
+      })
+      .to(
+        horizontalCutRef.current,
+        {
+          height: '100px',
+          duration: 0.5,
+          ease: 'power3.out',
+        },
+        '<'
+      )
+
+      .to(verticalCutRef.current, {
+        width: '100vw',
+        left: 0,
+        duration: 0.5,
+        ease: 'power2.out',
+      })
+      .to(
+        horizontalCutRef.current,
+        {
+          height: '100vh',
+          top: 0,
+          duration: 0.5,
+          ease: 'power2.out',
+        },
+        '<'
+      )
+
+      .call(() => {
+        gsap.set(overlayRef.current, { backgroundColor: '#ffffff' });
+      })
+
+      .to([verticalCutRef.current, horizontalCutRef.current], {
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power2.out',
+      })
+
+      .to(overlayRef.current, {
+        opacity: 0,
+        duration: 0.5,
+        ease: 'power2.out',
+        onComplete: () => {
+          setIsComplete(true);
+        },
+      });
+  }, []);
 
   return (
-    <>
-      {/* Top half - slides left */}
-      <div 
-        ref={topHalfRef}
-        className="fixed top-0 left-0 w-full bg-black pointer-events-none"
-        style={{ 
-          zIndex: 9999,
-          height: '50vh'
-        }}
+    <div className='aria-hidden pointer-events-none fixed inset-0 z-50'>
+      <div
+        ref={overlayRef}
+        className='absolute inset-0 bg-black'
+        style={{ willChange: 'opacity, backgroundColor' }}
       />
-      
-      {/* Bottom half - slides right */}
-      <div 
-        ref={bottomHalfRef}
-        className="fixed bottom-0 left-0 w-full bg-black pointer-events-none"
-        style={{ 
-          zIndex: 9999,
-          height: '50vh'
-        }}
+      <div
+        ref={verticalCutRef}
+        className='absolute bg-white shadow-[0_0_25px_rgba(255,255,255,1)]'
+        style={{ willChange: 'width, left, opacity' }}
       />
-    </>
+      <div
+        ref={horizontalCutRef}
+        className='absolute bg-white shadow-[0_0_25px_rgba(255,255,255,1)]'
+        style={{ willChange: 'height, top, opacity' }}
+      />
+    </div>
   );
 };
-
-export default IntroAnimation;
